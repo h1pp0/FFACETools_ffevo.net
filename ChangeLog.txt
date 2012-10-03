@@ -1,0 +1,322 @@
+Version 1.3.1.10
+	- Fix: dat reading class for Dec '11 update (Rzn)
+	- Fix: OutOfMemory Exception in ChatTools (GolfnSurf)
+	- Fix: Duplicate key entry error in ParseResources (Eradicate)
+	- Removed hardcoded WindowerPath variable in ParseResources, will now try to determine path automatically for windower users.
+	- Added non-windower support (will check exe assembly folder for "resources" sub-folder for xml files.
+
+Version 1.3.1.9
+	- Add new enums to StatusEffect enum
+	- Add Unknown, Everyones_Grudge, and Reaving_Wind value to SpellList enum
+	- Add Unknown to AbilityList enum
+	- Add Race enum
+	- Add Unknown to MoonPhase, Weekday enums
+	- Fix Player.CastPercentEx to use CastPercent * 100, it used to only return 2 possible values, 0 and 100.
+	- Modify MenuTools.SelectedItemName to use ParseResources (it's more reliable), FFACE.GetSelectedItemName() if it fails, String.Empty if menu is not open.
+	- Modify ParseResources... A LOT
+	- ** ParseResources 
+	- Add UseFFXIDatFiles, LanguagePreference, and Languages enum to ParseResources
+	- **You will need to set these BEFORE calling 'new FFACE(pid)' if you need to either use resource xmls or a different language
+	- Whether you choose FFXI Dats or Windower, you can choose a language BEFORE initing FFACE() by setting LanguagePreference to a valid Language enum
+	- Add Get*Name for Item, Ability, Spell, Weather, Day, Race, Nation (technically Region), Short Job, Long Job, Area, Status, Moon
+	- Add Get*Id for Item, Ability, Spell, Weather, Day, Race, Nation, Short Job, Long Job, Area, Status, Moon
+	- Get*Name and Get*Id for Item, Ability, Spell, Area, Status always work, the rest require using FFXIDats to retrieve.
+	- Add GetItemIds() for returning a list of valid IDs for a matching item name (Twashtar and most upgradeable weapons)
+	- Race Names are of the form 'Race Gender', unless it's Race.Unknown.  Use this for parsing Gender/Race by splitting on the space.
+	- ParseResources now works properly even without FFACE running (if you either set WindowerPath before calling it, or using FFXI Dats instead)
+	- Big Thanks to eradicate on Windower IRC for the idea of the singleton class and giving me a small base to work with for testing.
+	- If trying to use the d_Msg code from ParseResources, keep in mind it's only functional, not flawless.
+	- Bump to 1.3.1.9, recompiled DLL
+	
+Version 1.3.1.8
+	- Fix Exception throwing when using *Count property
+	- Add UseArrowKeysForTurning property for setting whether to use ArrowKeys for turning.
+	- *UseArrayKeysForTurning is only used if outside (HeadingTolerance / 2) but inside HeadingTolerance
+	- *FaceHeading is still used if outside HeadingTolerance
+	- Add CallingConvention.Cdecl to all imports. No more PInvokeStackImbalance warnings when running in the debugger.
+	- SelectedItemName uses ParseResources, but if for some reason that doesn't work, resorts to the old way.
+	- Bump to 1.3.1.8, recompiled DLL.
+
+Version 1.3.1.7
+	- Fix (possibly) cacheing issues with ParseResources.
+	- Fix: Name of item is now stored in the cache with proper capitalization and won't harm the lookup either.
+	- Benchmark: Tested ParseResources, 80s to load 974 items into the cache, 2.1s to use the exact same code again after cacheing.
+	- Lower DistanceTolerance minimum to 0.25, testing indicates this is not too low of a number.
+	- Add Synergy to CraftDetails and appropriate enum to Craft
+	- Add Skill to CraftDetails (Craft enum)
+	- Add a CraftRank enum
+	- CraftDetails.Rank now returns a CraftRank enum.
+	- Add a ToString() override for CraftDetails and a ToString(string) overload for 'special' formatting.
+	- Add GetAllCraftDetails which will return a List<> of CraftDetails
+	- Add a MagicOrCombat enum for SkillDetails to be used with determining skill type.
+	- Add Skill and SkillType to SkillDetails for discerning if it's magic or combat enum
+	- Add a ToString() override for SkillDetails and a ToString(string) overload for 'special' formatting.
+	- Move IsSet internal functions to FFACETools.cs to make them easier to access from anywhere within the assembly.
+	- Add GetFirstIndexByItemID(int ID, InventoryType location) will return the first index occuppied by item matching ID.
+	- Add GetItemCountByIndex(int index, InventoryType location) will return number of items at index in location.
+	- Add GetItemIDByIndex(int index, InventoryType location) will return Item ID in location at index.
+	- Add GetItemCount(int iD, InventoryType location) will return total number of items matching ID in location.
+	- Add GetItem(int index, InventoryType location) will return InventoryItem at index in location (first).
+	- Change all Get* functions to use the InventoryType versions for returning information.
+	- new TreasureItem class for accessing Treasure Pool information.
+	- struct TREASUREITEM is now a private struct to allow for null return values from GetTreasureItem()
+	- GetTreasureItem() can now return null if no item present.
+	- Add OpenTradeMenu(int) for use with NPCS ONLY. This does NOT work with PCs and will return Failed if attempted.
+	- Made OpenTradeMenu(int) start it's own thread for this purpose (it stops after 30 seconds no matter what).
+	- Add public bool SetTradeGil(uint Gil); for putting JUST gil into the Trade Menu
+	- Last step in phasing out GetLineExtra and GetLineRaw completed.
+	- Fix GetPlayerInformation.Buffs() being off by one 'short' in size (2 bytes)
+	- Fix LimitPoints and MeritPoints being off by one 'short' in size (2 bytes)
+	- Add StatusEffect.Unknown in order to parse StatusEffect array more efficiently
+	- Add LimitMode (byte) property to get the actual value from memory
+	- Add IsMeritMode and IsExpMode (uses LimitMode) to determine if EXP or Merit Points is set in Status/Merit Points/Mode Switch
+	- Add Pianissimo to the AbilityList enum
+			
+Version 1.3.1.6
+	- Change all .Equals() functions where type may be different to use the == or != check instead where appropriate.
+	- UInt32.Equals(Int32) always retuns false, so checking ushort IDs vs int IDs always returned false.
+	
+Version 1.3.1.5
+	- Add SatchelCount, SafeCount, TemporaryCount, LockerCount, SackCount, StorageCount (analog of InventoryCount)
+	- Fix InventoryItem stuff to allow indexes from 0 to 80.  The rest require indexes from 1 to 80.
+	- Internal: Reorganize NavigatorTools
+	- Cap HeadingTolerance to a range of 5 to 175
+	- Cap DistanceTolerance to a range of 0.75 to 49
+	- Add HeadingType enum for the purpose of consolidating a lot of common functions.
+	- Rename all GotoTarget* overloads to just GotoTarget (they were all using the same code)
+	- Rename all GotoNPC* overloads to just GotoNPC (they were all using the same code)
+	- Rename the GotoXZ/GotoXYZ overloads to just Goto (they were all using the same code)
+	- Fix Goto to avoid running if we're within DistanceTolerance to Target values.
+	- Along with above, Goto will NOT set FirstPersonView unless we are outside of DistanceTolerance
+	- Goto also will return immediately if the X, Y, Z coords are all 0 (Why are you chasing yourself WHILE ZONING?!)
+	- Consolidate all Face* overloads into FaceHeading overloads.
+	- Add FaceHeading(ID) variety
+	- Add DistanceTo(ID) variety
+	- Add HeadingTo(ID) variety
+	- Add 6 more variations to Goto to allow for moving to static points
+	-   * They don't live update, good for static points.  Use GotoNPC for NPC/PC that can potentially move.
+	- Rename all HeadingTo* overloads to just HeadingTo (consolidation)
+	- Rename all DistanceTo* overloads to DistanceTo (consolidation)
+	- Add GetPlayerPosHInDegrees. Output value is in range of (0 <= value < 360)
+	- Add DegreesToPosH and PosHToDegrees
+	- Add SetViewMode, used in Goto automatically.  SAVE PLAYER'S VIEWMODE BEFORE CALLING GOTO* METHODS IF YOU WISH TO RESTORE IT AFTER RUNNING IT.
+	- DO NOT REPLACE OLD DLLs WITH THIS ONE. This version WILL break backward compatibility. YOU HAVE BEEN WARNED!!!
+	- Also, fuck backward compatibility. :-)
+	- Updated wiki...
+	- I probably forgot something and I'll have to release a fix later.
+	- Bump to 1.3.1.5
+
+Version 1.3.1.4
+	- Bump to 1.3.1.4
+	- Add GetNextLine() (no arguments)  Will use the default LineSettings.OldSchool
+	- FishTools.TimeOut can now be used as an alternative to SetTimeOut which will return false on failure if you don't care about return values.
+	- Add fix for line splits caused by small resolutions. Issue caused font to auto-change to fixed-width in some RTB displays.
+	- Final fix to CleanLine for additional NULLs showing up in Strings (No longer adding bytes if they're equal to \0.
+	- Fix for item/key item/object item codes being split on smaller resolutions causing text to disappear when LineSettings.CleanTimeStamp is set.
+	- Fix mentioned also causes these items to be displayed as {gold } and {carp} when split onto multiple lines.
+	- Fix for CleanTimeStamp to resolve issue with smaller resolutions and items disappearing from cleaned lines.
+	- FishTools.HPCurrent is now a writable property.  HPCurrent = 0.  Calls SetFishHP (Same as FishTools.SetHP())
+	- FishTools.TimeOut is now a writeable property. TimeOut = 30, Calls SetTimeOut (Same as FishTools.SetTimeOut())
+	- Fix imports internally for some FFACE functions
+	- Add import for FFACE SetNPCPosH() (used in NavTools)
+	- Add import for GetSearchSublvl() (used in SearchTools)
+	- Add range checks to Get*ItemCountByIndex functions they were missing from.
+	- Allow people to use an index of 0 with GetInventoryItemIDByIndex (the ID is 0xFFFF)
+	- Add range checks to Get*Item functions they were missing from
+	- Add fix to MenuTools.SetNPCTradeInformation() to not crash if TRADEITEM[] was null (sets gil)
+	- Add fix to MenuTools.SetCraftItems() to not crash if TRADEITEM[] was null (returns false)
+	- Add GetDialogText() and GetDialogText(LineSettings lineSettings) to allow folks to Clean their own dialog text
+	- Add Navigator.SetViewMode(ViewMode vm). Forces ViewMode if not set.  Used automatically in GoTo*() functions
+	- Add 'int timeOut' overloads to all GoTo*() functions to set a timeOut (in ms, <= 0 for infinite) to give up running toward target.
+	- Add SetPlayerPosH(float value) and SetPlayerDegrees(double degrees) functions.  Used in GoTo*() functions.
+	- Add float ConvertDegreesToPosH(double degrees) - Converts a degree (0/360 north, 90 east, 270 west) to an FFXI PosH
+	- NPCTools.Name returns String.Empty if size is 0 instead of crashing
+	- Add PlayerTools.Synthing property (same as IsSynthing() Method)
+	- Modify SearchTools.PageCount to an int instead of a byte
+	- Add SearchTools.SubLvl(short index) to complete SearchTools
+	- Add range checking to TimerTools.GetAbilityRecast/GetAbilityID
+
+Version 1.3.1.3
+	- Add public int GetAbilityRecast(AbilityList) (use sparingly, it loops) to mimic GetSpellRecast(SpellList)
+	- GetAbilityRecast(AbilityList) returns -1 if the ability is not "equipped", GetAbilityRecast(short index) will not.
+	- Add static constant FFACE.TimerTools.MAX_ABILITY_INDEX for use with GetAbilityRecast(index)/GetAbilityID(index)
+	- Fix minor issue with CleanLine. If ever there was a \r or \n, it would skip two bytes instead of 1.
+	- Move Obsolete functions to the end of Chat.cs
+	- Update some comments to make it easier to navigate.
+	- Fix a potential issue with ResourcesCache popping an unhandled exception because it doesn't like duplicate keys.
+	- Add public List<InventoryItem> GetItemList(int iD, InventoryType location)
+	- Add InventoryType location to enums.cs
+	- Modify InventoryItem class to store location as well
+	- Reformatted all documents
+	- Bump to 1.3.1.3
+
+Version 1.3.1.2
+	- Made ParseResources cache via Dictionary entry when new items/areas/status are found.
+	- Changed GetLineRaw to return a Color.Red instead of Color.Empty if there's not 12 entries.
+	- Modified CleanLine to account for \x1E being a start char for color codes (CleanOthers strips any not Convertable).
+	- Added ConvertObjectBytes and CleanObjectBytes to clean \x1E\x05Petra\x1E\x01 combinations (Objects of interest).
+	- Bump to 1.3.1.2
+
+Version 1.3.1.1
+	- Fix potential issue with GetLineRaw returning null on error.
+	- Fix version number to check vs UInt64 instead of Int64
+	- Bump to 1.3.1.1 to let people know there's a new version.
+
+Version 1.3.1.0
+	- Update ChatMode with 2 new enums (31 and 23) PlayerRecoversHP and SomeoneRecoversHP
+	- Add LineSettings Enum bitfield.
+	- Add RawString (String[]) and Index to ChatLine
+	- Add RawString (String[]) and ActualLineColor to ChatLogEntry
+	- Change GetNextLine to use LineSettings and will return Color without requiring a bool
+	- Change CleanLine to be public static so anyone can use it and to simplify DialogText class.
+	- Extract internal CleanTimeStamp function which has code that works based on color bytes, but keeps original functionality if that fails.
+	- Fix internal CleanTimeStamp to handle bounds checking for Substring() function.
+	- Made GetLine() and GetLineExtra() Obsolete
+	- Fix Index Out Of Range error in GetLineRaw().
+	- Fix GetLineRaw() to do bounds checking. Return RawString with split array on error.
+	- Obsolete GetCurrentLine() "Use GetNextLine() instead."
+	- Modify DialogText.Question and Dialog.Options to use LineSettings for line cleaning.
+	- Bump to 1.3.1.0 (1.3.0.9 was internal)
+
+Version 1.3.0.8
+	- Add a Trim('#') to the GetNextLine function to (hopefully) solve random crashes.
+	- Add a true fix to the extra \0 at the end of CleanLine
+	- Bump to 1.3.0.8
+
+Version 1.3.0.6
+	- Add import GetSackMax and GetSackItem
+	- Add Get*ItemCountByIndex and renamed GetItemCountByIndex to GetInventoryItemCountByIndex to follow naming conventions
+	- Add Get*ItemIDByIndex, Get*ItemCount for Safe/Storage/Locker/Temp/Satchel/Sack
+	- Update dll to 1.3.0.6 to indicate an additional change.
+	
+Version 1.3.0.5
+	- Updated to work with 4.1.0.14 FFACE.dll
+	
+Version 1.3.0.4
+	- Add new Menu Dialog imports and corresponding functions into MenuTools section.
+	- New class added as well.
+
+Version 1.3.0.3
+	- Update version to 1.3.0.3
+	- Add check for WindowerPath Null Or Empty before checking if File.Exists, duh.
+	- This check has been applied to all ParseResources.Get* functions.
+	
+Version 1.3.0.2
+	- Update to version 1.3.0.2
+	- Rename ChatMode.CaughtOnHook to ChatMode.NPCSpeaking
+	- Add Exception throwing into ParseResources.Get*() when file not found.
+	- Switch to 1252 codepage for internal chat parsing to preserve byte information.
+	- Strip and Convert to codepage 932 in CleanLine for display purposes.
+	- Add Auto-Translate conversion to CleanLine <{ }> and <F> <I> <A> <W> <T> <E> <D> <L>
+	- Add final modifications to completely fix chat functions.
+
+Version 1.3.0.1
+	- Fix Fight to be a function instead of an accessor.
+		
+Version 1.3.0.0
+	- Yekyaa:
+	- Update version info to 1.3.0.0 for FFACETools.dll
+	- Add Import for FightFish from FFACE.dll
+	- Add "Fight" to FishTools using FightFish export from FFACE
+	- Add XYZ equivalents of all XZ() functions (Account for height difference (Y))
+	- Fix resource parsing to base off the WindowerPath which should be set to the plugins directory
+	- Added enums I've found that're NOT in the list
+	- Fixes for Windower resources. 
+	- Add an error check for GetInventoryCount (returns -1 on error [usually logging/zoning or just not loaded], 0 on empty, count of items in inventory otherwise)
+
+	- h1pp0:
+	- [*]ParseResources has been updated to work with the new windower method of splitting the resource file data into subfiles.
+	- [*]Fixed up some mispelling in enums.cs, changed the name of UtsusemiIchi and Ni to Utsusemi_Ichi/Utsusemi_Ni in spelllist enum for consistency so it will break some bots that rely on the old spelling to check for recast times. This change does not affect checking of how many utsusemi shadows are left.
+	- [+]Added imports for: GetNPCTradeInfo, SetNPCTradeInfo, SetCraftItem, IsSynthesis, SetFishHP, SetTimeOut
+	- [+]Added IsSynthesis() to Player.cs
+	- [+]Added SetNPCTradeInformation and SetCraftItems to Menu.cs and added NPCTRADEINFO struct
+	- [+]Added SetFishHP and SetTimeOut to Fish.cs. These can be used for instant kill and to increase how long the lik/gugs are on your line.
+	- [+]Added Weather imports and types
+	- [*] Updated Avatars Favor Ability to correct value
+	- [*] Updated AbilityList
+	- [*] Updated SpellList
+	- [+] Added new StatusEffect IDs
+	- [*] Fixed up Zone IDs
+	- [+] Added last 3 Abyssea zones
+	- [Fixed] Imports.cs Error
+	- [Added] Abyssea Zones
+	- [Added] Enums for counting shadows
+	- Added check for contributor status to Imports.cs
+	- bool Access(void* instance)
+	- Added Lobby value to zone enums.cs
+	- Added spells and fixed up SpellList in enums.cs
+
+Version 1.2.0.0
+	- h1pp0:
+	- Changed description for PetID (requires index not ID)
+	- Changed ID from short to int since VS2008 complains about conversion
+	- Updated SpellList and a few Job Abilities
+	- Updated AbilityList with Yonin/Innin and a few group 2 Scholar Abilities
+	- Updated AbilityList (to include Avatar's Favor and Ready) and StatusEffect (to include favors)
+	- Updated Zone IDs
+	- [OPTIMIZED] GetLineRaw is now 200% faster in parsing chatlog
+	- [CHANGED] GetNextLine can now return color codes or just plain Text
+	- Fixed up a few variable names and missing syntax in enums.cs
+	- enums.cs is 100% working now
+	- Changed StatusEffect type back to "short"
+	- Added LoginStatus:
+	- Messagebox.Show(FFACE.Player.GetLoginStatus.ToString());
+	- cpirie:
+	- Added Target.Position
+	- Added numerous enums to ChatMode
+	- Update to 1.2.0.0
+			
+Version 1.1.1.2
+	- Fixed index 0 in GetEquippedItemCount & GetEquippedItemID
+	- Added new ChatLine definitions.
+		- ChatLine.Now = string "[HH:mm:ss]" for chat TimeStamps
+		- ChatLine.NowDate = DateTime.Now of chat, for manual conversion or logging.
+		- ChatLine.Color = RGB color value for ChatLines from FFXI
+	- Chat lines automatically have timestamps from plugins/programs stripped.  Append ChatLine.Now for Windower style timestamp.
+	- NOTE: FFACETools had to be reuploaded at this point (by Minako).
+	
+Version 1.1.1.1
+	- Changed Partymember active to byte.
+	
+Version 1.1.1.0
+	- Added reverse lookup to resource parser (get item id by name)
+	- Fixed a bug in ParseResources.GetItemID() where it would error if the search string contained an apostrophe
+	- Added case insensitive search for itemID lookup in ParseResources
+	- Added accessor of "IncludeBackGrond" to the TextObject class in WindowerTools
+	- Removed paraemter of "includeBackground" from CreateTextObject (it reads from accessor instead)
+	- Created new method UpdateTextObject(string text) that will do the 3 calls previously required for updating text
+	- Renamed CreateTextObject() in TextObject class to "RenderTextObject"
+	- Fixed a bug in ItemTools.GetSatchelItem where it returned a locker item in place of the proper satchel item
+	- Fixed job enums to reverse SCH and DNC
+	
+Version 1.1.0.0
+	- Fixed a buffer exception in chat system on long strings
+	- Added FishID.Equals()
+	- Corrected a typo for GetTrasureItem to GetTreasureItem
+	- Added GetTempItem
+	- Added GetSatchelItem
+	- Added GetSatchelMax
+	- Removed support for FFACE v4.0.0.7 and v4.0.0.8
+	- Modified a bunch of item calls to work with v4.0.0.9 since the imports were removed from FFACE
+	- Added ability to parse some of resources.xml
+		- Look up item name by ID
+		- Look up area name by ID
+		- Look up status effect name by index
+	- Fixed import definitions for CastMax, CastCountDown, CastPercent, and they now work
+	- Updated some definitions stating what the command does
+	- Implimented (with permission!) Pyrolol's navigation system
+	- Added FFACE Menu calls
+	- Added FFACE Search calls
+	- Updated some imports to match exactly what FFACE returns
+	
+Version 1.0.1.0
+	- Converted GetPlayerPos# to GetNPCPos# in the Player class so that it's supported in both FFACE v4.0.0.7 and v4.0.0.8
+	- Renamed internal inputs on NPC class to show proper parameter names
+	- Added accessor "ServerTimeUTC" to Timer class to get the servers current time in UTC
+	- Changed GetNPCType to return an enum
+	- Added accessor "Type" to target
+	- Fixed a bug in the chat system where it would throw a "Queue Empty" exception
+	- Added ability to "clean" up the line from FFACE (remove funky characters, etc)
+	
+Version 1.0.0.0
+	- Created FFACETools Library
