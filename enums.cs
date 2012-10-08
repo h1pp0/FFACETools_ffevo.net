@@ -2002,17 +2002,14 @@
         /// </summary>
         AllBagsPlusTemp = Inventory | Satchel | Sack | Temp,
         /// <summary>
-        /// Everything including Temporary Items
+        /// Everything not including temporary items
         /// </summary>
-        AllPlusTemp = Inventory | Safe | Storage | Locker | Satchel | Sack | Temp,
+        AllNoTemp = Inventory | Safe | Storage | Locker | Satchel | Sack,
         /// <summary>
         /// AllPlusTemp (Everything including Temporary Items)
         /// </summary>
-        All = Inventory | Safe | Storage | Locker | Satchel | Sack | Temp,
-        /// <summary>
-        /// Everything not including temporary items
-        /// </summary>
-        AllNoTemp = Inventory | Safe | Storage | Locker | Satchel | Sack
+        All = Inventory | Safe | Storage | Locker | Satchel | Sack | Temp
+
     }
     #endregion
 
