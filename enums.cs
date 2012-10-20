@@ -4463,10 +4463,11 @@
     /// </summary>
     public enum NPCType : byte
     {
-        Player,
-        NPC,
-        Mob,
-        InanimateObject
+        PC = 0x01,
+        NPC = 0x02,
+        Self = 0x0D,
+        Mob = 0x10,
+        InanimateObject,
 
     } // @ public enum NPCType
 
