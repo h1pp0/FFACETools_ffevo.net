@@ -190,6 +190,12 @@ namespace FFACETools
         private static extern bool IsSynthesis (int InstanceID);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern float SetNPCPosH (int InstanceID, int index, float value);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ReadRawNPCData (int InstanceID, int index, int start, byte[] buffer, ref int length);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool WriteRawNPCData (int InstanceID, int index, int start, byte[] buffer, int length);
+
+
         /*		
          *		FFACE paid functions
          *
@@ -341,6 +347,10 @@ namespace FFACETools
         private static extern int GetDialogIndexCount (int instanceID);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern short GetDialogID (int instanceID);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int GetMenuIndex (int instanceID);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool SetMenuIndex (int instanceID, int index);
         #endregion
 
         #region Search Imports

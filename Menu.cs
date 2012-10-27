@@ -395,6 +395,19 @@ namespace FFACETools
                     return new DialogText(String.Empty);
                 return new DialogText(System.Text.Encoding.GetEncoding(1252).GetString(buffer, 0, size - 3).Trim(), lineSettings);
             }
+
+            /// <summary>
+            /// Get the menu index or set it by calling the property with a int value
+            /// </summary>
+            /// <param name="_InstanceID"></param>
+            /// <returns></returns>
+            public int MenuIndex
+            {
+                get { return GetMenuIndex(_InstanceID); }
+                set { SetMenuIndex(_InstanceID, value); }
+                
+            } // @ public int GetMenuIndex
+
             #endregion
 
         } // @ public class Menu

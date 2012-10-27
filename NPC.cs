@@ -255,6 +255,41 @@ namespace FFACETools
 
             } // @ public double Distance
 
+            /// <summary>
+            /// Requires: Index of mob in the NPC Array, Start position and Size of bytes to read
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="start"></param>
+            /// <param name="size"></param>
+            /// <returns></returns>
+            public byte[] GetRawNPCData(int mobindex, int start, int size)
+            {
+                if (size <= 0)
+                    return null;
+                int _size = size;
+                byte[] npcarraybytes = new byte[_size];
+                ReadRawNPCData(_InstanceID, mobindex, start, npcarraybytes, ref _size);
+                if (_size > 0)
+                    return npcarraybytes;
+                return null;
+            } // @ public byte[] GetRawNPCData
+
+            /// <summary>
+            /// Sets the data in the NPC Array for the NPC at the selected mobindex
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="start"></param>
+            /// <param name="buffer"></param>
+            /// <param name="size"></param>
+            /// <returns></returns>
+            public bool SetRawNPCData (int mobindex, int start, byte[] buffer, int size)
+            {
+                if (buffer.Length <= 0 || size <= 0)
+                    return false;
+                return WriteRawNPCData(_InstanceID, mobindex, start, buffer, size);
+
+            } // @ public bool SetRawNPCData
+
             #endregion
 
         } // @ public class NPCTools
