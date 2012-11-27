@@ -233,6 +233,7 @@ namespace FFACETools
                     _FontColor[2] = green;
                     _FontColor[3] = blue;
 
+                    FontVisible = visible;
                     FontBold = bold;
                     FontItalic = italic;
                     FontRightJustified = rightJustified;
