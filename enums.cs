@@ -532,6 +532,7 @@
         Perpetuance = 469,
         Immanence = 470,
         Migawari = 471,
+        Ternary_Flourish = 472,
         Muddled = 473,
         Prowess = 474,
         Voidwatcher = 475,
@@ -547,7 +548,25 @@
         Counter_Boost = 486,
         Endrain = 487,
         Enaspir = 488,
-        Afterglow = 489
+        Afterglow = 489,
+        Imminent_Strikes = 490,
+        MNK_SP2 = 491,
+        Asylum = 492,
+        Subtle_Sorcery = 493,
+        Encomium = 494,
+        THF_SP2 = 495,
+        Righteous_Guard = 496,
+        DRK_SP2 = 497,
+        BST_SP2 = 498 ,
+        Malinconico = 499,
+        Instinctive_Aim = 500,
+        Yaegasumi = 501,
+        Tengen = 502,
+        Rouse_Wyvern = 503,
+        Astral_Conduit = 504,
+        Unbridled_Wisdom = 505,
+        Three_To_One = 506,
+        Grand_Pas = 507
 
     } // @ public enum StatusEffect : short
 
