@@ -4485,6 +4485,27 @@
         handcrafted_spatula = 2131,
         transmuted_candle = 2132,
         gourmet_whipped_cream = 2133,
+        ancient_papyrus_shred = 2134,
+        exoray_mold_crumb = 2137,
+        bomb_coal_fragment = 2140,
+        shining_fragment = 2143,
+        glossy_fragment = 2144,
+        grimoire_page = 2145,
+        Moblin_pheromone_sack = 2146,
+        golden_wing = 2147,
+        moss_covered_shard = 2148,
+        essence_of_perfervidity = 2149,
+        branded_wing = 2150,
+        malicious_horn = 2151,
+        sheet_of_San_dOrian_tunes = 2152,
+        sheet_of_Bastokan_tunes = 2153,
+        sheet_of_Windurstian_tunes = 2154,
+        geomagnetron = 2155,
+        prototype_attuner = 2166,
+        geomagnetic_compass = 2196,
+        ocular_orb = 2197,
+        noxious_grime = 2198,
+        pulsating_shard = 2199
     }
     #endregion
 
