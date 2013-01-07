@@ -1031,7 +1031,7 @@ namespace FFACETools
             ///</summary>
             public bool KnowsSpell (SpellList spell)
             {
-                return HasSpell(_InstanceID, (uint)( (short)spell * 2 ));
+                return HasSpell(_InstanceID, (uint)( (short)spell / 2 ));
             }
 
             /// <summary>

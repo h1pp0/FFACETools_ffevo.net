@@ -219,7 +219,7 @@ namespace FFACETools
             public byte IsLocked;
             public byte IsSub;
             public byte HPP;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 20)]
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 24)]
             public string Name;
 
         } // @ public struct TARGETINFO
