@@ -625,6 +625,8 @@ cleanedString = cleanedString.Replace("1", "");
                     if (( textb[index2] == 0x1E ) && ( textb[index2 + 1] == 0x01 ))
                     {
                         index2++;
+						if (textb[index2 + 1] == 0x20)
+							index2++;
                         break;
                     }
                 }
