@@ -1,3 +1,9 @@
+Version 1.3.1.14
+	- Updated: Spelllist, Abilities, KeyItems, StatusEffects
+	- Fixed: SetFontColor not returning true by default
+	- Fixed: Math error in HasSpell
+	- Fixed: Bug that will cut off the names of NPCs that are > 20 characters.
+	- Fixed: Issues with chatlog cleaning when using Ashita
 Version 1.3.1.13
 	- Added: ReadRawNPCData, WriteRawNPCData, GetMenuIndex, SetMenuIndex
 Version 1.3.1.10
