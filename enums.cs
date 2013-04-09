@@ -1068,7 +1068,23 @@
         Norg = 252,
         Abyssea__Uleguerand = 253,
         Abyssea__Grauberg = 254,
-        Abyssea__Empyreal_Paradox = 255
+        Abyssea__Empyreal_Paradox = 255,
+        Western_Adoulin = 256,
+        Eastern_Adoulin = 257,
+        Rala_Waterways = 258,
+        Rala_Waterways_U = 259,
+        Yahse_Hunting_Grounds = 260,
+        Ceizak_Battlegrounds = 261,
+        Foret_de_Hennetiel = 262,
+        Yorcia_Weald = 263,
+        Yorcia_Weald_U = 264,
+        Morimar_Basalt_Fields = 265,
+        Sih_Gates = 268,
+        Moh_Gates = 269,
+        Cirdas_Caverns = 270,
+        Cirdas_Caverns_U = 271,
+        Silver_Knife = 283,
+        Celennia_Wexworth_Memorial_Library = 284
 
     } // @ public enum Zone : short 
 
