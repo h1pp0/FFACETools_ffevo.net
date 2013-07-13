@@ -594,44 +594,44 @@
     /// </summary>
     public enum ChatMode : short
     {
-        //------------------------------------------------------------------------------------------'
-        //--------------------------------------Tekz eChatModes-------------------------------------'
-        //------------------------------------------------------------------------------------------'
         Error = -1,				// "Invented" chat mode, to help catch errors
         Generic = 0,		// Unknown = 0,			 // Catch all. it's not a catch all.
 
         //--------------------------------------------------------------'
         //-Text That's Been Sent To The ChatLog By You aKa (The Player-)'
         //--------------------------------------------------------------'
-        SentSay = 1,			 // = A Say Msg That The Used Sends 
-        SentShout = 2,		   // = A Shout Msg That The Used Sends
-        SentTell = 4,			// = my Tell to someone else
-        SentParty = 5,		   // = my msg to Party
-        SentLinkShell = 6,	   // = my msg to my linkshell
-        SentEmote = 7,			  // = sent email
+        SentSay = 1,			 // = a say message that the user sends
+        SentShout = 2,		   // = a shout message that the user sends
+		SentYell = 3,
+        SentTell = 4,			// = user sends tell to someone else
+        SentParty = 5,		   // = user message to Party
+        SentLinkShell = 6,	   // = user message to linkshell
+        SentEmote = 7,			  // = user uses /emote
 
         //--------------------------------------------------------------'
         //----Text That's Been Recieved In ChatLog By Other Players-----'
         //--------------------------------------------------------------'
-        RcvdSay = 9,			 // = A Say Msg That The Used Will See From Someone Else
-        RcvdShout = 10,		  // = A Shout Msg That The Used Will See From Someone Else
-        RcvdTell = 12,		   // = received a Tell
-        RcvdParty = 13,		  // = received party text -- Thanks to AcidFang for this value (v1.5.4)
+        RcvdSay = 9,			 // = a say mesage the user recieves from someone else
+        RcvdShout = 10,		  // = incoming shout
+		RcvdYell = 11,
+        RcvdTell = 12,		   // = incoming tell
+        RcvdParty = 13,		  // = incoming party message
         RcvdLinkShell = 14,	  // = incoming linkshell text
         RcvdEmote = 15,			 // = received Emote
+		// Yell???
 
         //--------------------------------------------------------------'
         //-----------You aKa (The Player's) Fight Log Stuff-------------'
         //--------------------------------------------------------------'
-        PlayerHits = 20,	// eg. Teknical hits the Thread Leech for 63 points of damage.
+        PlayerHits = 20,	// eg. Player hits the Thread Leech for XX points of damage.
         PlayerMisses = 21,
         TargetUsesJobAbility = 22, // eg. The Thread Leech uses TP Drainkiss.
         SomeoneRecoversHP = 23,
-        TargetHits = 28,	 // eg. The Thread Leech hits Teknical for 4 points of damage.
-        TargetMisses = 29,	   // eg. The Thread Leech misses Teknical.
+        TargetHits = 28,	 // eg. The Thread Leech hits Player for XX points of damage.
+        TargetMisses = 29,	   // eg. The Thread Leech misses Player.
         PlayerAdditionalEffect = 30,
         PlayerRecoversHP = 31,		// Player casts Cure. Player recovers 30 HP.
-        PlayerDefeats = 36,	  // eg. Teknical Defeats the River Crab. or whatever
+        PlayerDefeats = 36,	  // eg. Player Defeats the T
         PlayedDefeated = 38,
         NPCHit = 40,
         NPCMiss = 41,
@@ -640,7 +640,7 @@
         SomeoneDefeats = 44,	 // = somebody "defeats the" river crab or whatever
         PlayerCastComplete = 50,
         PartySpellEffect = 51,
-        PlayerStartCasting = 52, // eg. Teknical starts casting Dia on the Thread Leech., The Antican Princeps starts casting Flash.
+        PlayerStartCasting = 52, // eg. Player starts casting Dia on the Thread Leech., The Antican Princeps starts casting Flash.
         PlayerSpellResult = 56,
         PlayerRcvdEffect = 57, // The Antican Princeps casts Flash. <name> is blinded.
         PlayerSpellResist = 59,
@@ -652,7 +652,7 @@
         SomeoneItemBadEffect = 91,
         SomeoneItemGoodEfect = 92,
         TargetActionStart = 100,
-        PlayerUsesJobAbility = 101, // eg. Teknical uses Divine Seal.
+        PlayerUsesJobAbility = 101, // eg. Player uses Divine Seal.
         PlayerStatusResult = 102,
         TargetActionMiss = 104,
         PlayerReadiesMove = 110, // eg. The Thread Leech readies Brain Drain.
@@ -679,31 +679,13 @@
         DropRipCap = 159,		// = you release the ripped cap regretfully
         RegConquest = 161,	   // = regional conquest update message
         ChangeJob = 190,
-        EffectWearOff = 191,	 // eg. Teknical's Protect effect wears off
+        EffectWearOff = 191,	 // eg. Player's Protect effect wears off
         ServerNotice = 200,	   // = notice of upcoming server maintenance
         SearchComment = 204,
         LSMES = 205,
         Echo = 206,			  // = echo
         Examined = 208,
         AbilTimeLeft = 209    // Time left on "job ability"
-        //--------------------------------------------------------------'
-        //-----The Other Player aKa (The Target's) Fight Log Stuff------'
-        //--------------------------------------------------------------'
-
-
-
-
-
-
-
-
-        //-You didn't catch anything=,
-        //-You lost your catch, 
-        //-Whatever caught the hook was too small to catch, 
-        //-Your line broke
-
-
-
     } // @ public enum ChatMode : short
 
     #endregion
@@ -1903,7 +1885,8 @@
         Issekigan = 57,
         Dragon_Breaker = 58,
         Pflug = 59,
-        Steal = 61,
+        Steal = 60,
+		Despoil = 61,
         Flee = 62,
         Hide = 63,
         Sneak_Attack = 64,
@@ -1953,6 +1936,8 @@
         Gambit = 116,
         Liement = 117,
         One_for_All = 118,
+		Rayke = 119,
+		Battuta = 120,
         Scavenge = 121,
         Shadowbind = 122,
         Camouflage = 123,
@@ -2046,7 +2031,8 @@
         Dematerialize = 248,
         Theurgic_Focus = 249,
         Concentric_Pulse = 250,
-        Ready = 251,
+        Mending_Halation = 251,
+		Radial_Arcana = 252,
 		Unknown = 253,
         SP_II = 254,
         Pet_commands = 255
@@ -2542,6 +2528,7 @@
         GalkaMale,
         Unknown,
     }
+
     ///<summary>
     ///KeyItem Ids exported from ashita
     ///</summary>
@@ -3659,7 +3646,8 @@
         Orb_of_Batons = 1141,
         Orb_of_Coins = 1142,
         ripe_starfruit = 1143,
-        moldy, _worm_eaten_chest = 1144,
+        moldy,
+        _worm_eaten_chest = 1144,
         stone_of_Surya = 1145,
         stone_of_Chandra = 1146,
         stone_of_Mangala = 1147,
@@ -4727,7 +4715,85 @@
         Cirdas_simulacrum = 2293,
         map_of_Rala_Waterways_U = 2302,
         map_of_Cirdas_Caverns_U = 2304,
+        Mog_Bonanza_Kupons_D = 2334,
+        Mog_Bonanza_Kupons_De = 2335,
+        Mog_Bonanza_Kupons_Sa = 2336,
+        Mog_Bonanza_Kupons_Ny = 2337,
+        Mog_Bonanza_Kupons_S5 = 2338,
+        Mog_Bonanza_Kupons_S2 = 2339,
+        Mog_Bonanza_Kupons_O = 2340,
+        sheet_of_E_Adoulinian_tunes = 2341,
+        sheet_of_W_Adoulinian_tunes = 2342,
+        Hennebloom_leaf = 2343,
+        impure_celadon_yggzi = 2344,
+        semi_pure_celadon_yggzi = 2345,
+        impure_zaffre_yggzi = 2346,
+        semi_pure_zaffre_yggzi = 2347,
+        impure_alizarin_yggzi = 2348,
+        semi_pure_alizarin_yggzi = 2349,
+        Ephemeral_Endeavor = 2352,
+        Enlightened_Endeavor = 2353,
+        vessel_of_summoning = 2373,
+        sample_of_Midrass_explosive_agent = 2376,
+        report_detailing_Midrass_explosive = 2377,
+        tray_of_Adoulinian_delicacies = 2378,
+        small_bag_of_Adoulinian_delicacies = 2379,
+        waypoint_recalibration_kit = 2380,
+        Twelve_Orders_dossier = 2381,
+        hunk_of_bedrock = 2384,
+        Yorcias_tear = 2385,
+        blightberry = 2386,
+        large_strip_of_Velkk_hide = 2387,
+        Climbing = 2388,
+        kaleidoscopic_clam = 2390,
+        glass_pendulum = 2391,
+        ivory_wing_talisman = 2393,
+        bronze_mattock_cordon = 2394,
+        bronze_shovel_cordon = 2395,
+        GPS_crystal = 2398,
+        pair_of_Velkk_gloves = 2399,
+        lost_article3 = 2400,
+        lost_article4 = 2401,
+        Mar_FB_op_materials_container = 2403,
+        Yor_FB_op_materials_container = 2404,
+        Mar_FS_building_mat_container = 2405,
+        Yor_FS_building_mat_container = 2406,
+        Rosulatias_pome = 2410,
+        Celennia_Memorial_Library_card = 2411,
+        Sow_Your_Seed = 2412,
+        My_First_Furrow = 2413,
+        Fields_And_Fertilizing = 2414,
+        Designer_Farming = 2415,
+        Homesteaders_Compendium = 2416,
+        MHMU_Treatise_on_Agronomy = 2417,
+        Give_My_Regards_to_Reodoan = 2419,
+        Adoulins_Topiary_Treasures = 2420,
+        Grandiloquent_Groves = 2421,
+        Arboreal_Abracadabra = 2422,
+        Verdant_and_Verdonts = 2423,
+        MHMU_Treatise_on_Forestry = 2424,
+        Mythril_Marathon_Quarterly = 2426,
+        Take_A_Lode_Off = 2427,
+        Varicose_Mineral_Veins = 2428,
+        Tales_from_the_Tunnel = 2429,
+        The_Gusgen_Mines_Tragedy = 2430,
+        MHMU_Treatise_on_Mineralogy = 2431,
+        A_Farewell_to_Freshwater = 2433,
+        Water_Water_Everywhere = 2434,
+        Dredgings_No_Drudgery = 2435,
+        All_the_Ways_to_Skin_a_Carp = 2436,
+        Anatomy_of_an_Angler = 2437,
+        MHMU_Treatise_on_Fish_I = 2438,
+        The_Old_Men_of_the_Sea = 2440,
+        Susuroons_Biiig_Catch = 2441,
+        Black_Fish_of_the_Family = 2442,
+        _20000_Yalms_Under_the_Sea = 2443,
+        Encyclopedia_Icthyonnica = 2444,
+        MHMU_Treatise_on_Fish_II = 2445,
+        Mar_FS_resource_container = 2447,
+        Yor_FS_resource_container = 2448
     }
+
     #endregion
 
     #region Timer Related
