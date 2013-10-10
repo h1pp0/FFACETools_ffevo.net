@@ -657,21 +657,28 @@ namespace FFACETools
                     UInt32 num_strings = 0, offset = 0, flags = 0;
 
                     // Objects (General Items)  skip 6 bytes
-                    if (( itemHeader.ID <= 0x0FFF ) && ( itemHeader.ID >= 0x0000 ))
-                        br.BaseStream.Position = itemHeader.HeaderSize + 6;
+                    //if (( itemHeader.ID <= 0x08BC ) && ( itemHeader.ID >= 0x0000 ))
+                    //    br.BaseStream.Position = itemHeader.HeaderSize + 6;
 
+                    // FIX: (10-7-2013) update
+                    // Usable Items
+                    if (( itemHeader.ID <= 0x21FF ) && ( itemHeader.ID >= 0x0000 ))
+                        br.BaseStream.Position = itemHeader.HeaderSize + 10;  // Unknown is 0x04 bytes not 0x02
+
+                    /* Pre 10-07-2013 update
                     // Usable items skip 2 bytes
                     // Usable Items skip 6 bytes as of March 10, 2008 Update (new UINT32)
                     else if (( itemHeader.ID <= 0x1FFF ) && ( itemHeader.ID >= 0x1000 ))
                         br.BaseStream.Position = itemHeader.HeaderSize + 6;
+                    */
 
                     // Gil skip just 2 bytes
                     else if (itemHeader.ID == 0xFFFF)
                         br.BaseStream.Position = itemHeader.HeaderSize + 2;
 
                     // Puppet Items, skip 8 bytes
-                    else if (( itemHeader.ID <= 0x21FF ) && ( itemHeader.ID >= 0x2000 ))//11263 - 8192
-                        br.BaseStream.Position = itemHeader.HeaderSize + 10;  // Unknown is 0x04 bytes not 0x02
+                    //else if (( itemHeader.ID <= 0x21FF ) && ( itemHeader.ID >= 0x2000 ))//11263 - 8192
+                        //br.BaseStream.Position = itemHeader.HeaderSize + 10;  // Unknown is 0x04 bytes not 0x02
 
                     // Armor Specific Info, 22 bytes to skip to get to text
                     // 26 in March 10, 2008 Update (new UINT32)
@@ -1606,10 +1613,10 @@ namespace FFACETools
             public static AbilityList GetAbilityId (String abil)
             {
                 if (Instance == null)
-                    return AbilityList.Unknown;
+                    return AbilityList.Two_Hour;
                 int? key = FindKey(Instance.ResourcesCache, abil);
                 if (key == null)
-                    return AbilityList.Unknown;
+                    return AbilityList.Two_Hour;
                 return (AbilityList)( key & ~( (int)ResourceBit.Abils ) );
             }
 

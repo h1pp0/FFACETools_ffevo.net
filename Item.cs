@@ -165,7 +165,11 @@ namespace FFACETools
             /// </summary>
             public uint CurrentGil
             {
-                get { return GetInventoryItem(0).Count; }
+                // FIX: 10-07-2013 Update
+                get
+                {
+                    return FFACE.GetInventoryItem(_InstanceID, 0).Price;
+                }
             }
 
             /// <summary>

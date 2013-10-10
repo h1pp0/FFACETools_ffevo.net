@@ -1,3 +1,5 @@
+Version 1.3.1.17
+	- Various fixes for 10/07/2013 update
 Version 1.3.1.15
 	- March 2013 Version Update (Jobs, Spells, Abilities, Keyitems)
 Version 1.3.1.14
@@ -211,6 +213,9 @@ Version 1.3.0.3
 	- Add check for WindowerPath Null Or Empty before checking if File.Exists, duh.
 	- This check has been applied to all ParseResources.Get* functions.
 	
+Version 1.3.1.16
+	- [*] Fixed IsRendered offset
+	- [*] Version Bump to the actual version of 1.3.1.16
 Version 1.3.0.2
 	- Update to version 1.3.0.2
 	- Rename ChatMode.CaughtOnHook to ChatMode.NPCSpeaking
