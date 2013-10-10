@@ -656,10 +656,6 @@ namespace FFACETools
                     long data_pos = 0;
                     UInt32 num_strings = 0, offset = 0, flags = 0;
 
-                    // Objects (General Items)  skip 6 bytes
-                    //if (( itemHeader.ID <= 0x08BC ) && ( itemHeader.ID >= 0x0000 ))
-                    //    br.BaseStream.Position = itemHeader.HeaderSize + 6;
-
                     // FIX: (10-7-2013) update
                     // Usable Items
                     if (( itemHeader.ID <= 0x21FF ) && ( itemHeader.ID >= 0x0000 ))
