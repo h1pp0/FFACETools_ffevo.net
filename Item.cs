@@ -232,6 +232,15 @@ namespace FFACETools
             } // @ public short SatchelMax
 
             /// <summary>
+            /// Maximum amount of case slots player has
+            /// </summary>
+            public short CaseMax
+            {
+                get { return GetCaseMax(_InstanceID); }
+
+            } // @ public short CaseMax
+
+            /// <summary>
             /// Inventory slots in use, returns -1 on error
             /// </summary>
             public short InventoryCount
@@ -415,6 +424,33 @@ namespace FFACETools
                 }
 
             } // @ public short SatchelCount
+
+            /// <summary>
+            /// Case slots in use, returns -1 on error
+            /// </summary>
+            public short CaseCount
+            {
+                get
+                {
+                    // calculate amount of slots are not empty
+                    // -1 for error (loading/zoning)
+                    short count = -1;
+
+                    for (byte i = 1; i <= 80; i++)
+                    {
+                        if (GetCaseItem(i) != null)
+                        {
+                            count++;
+                        }
+                    }
+                    // since we found at least ONE item, we want to report count+1 (0 == 1 item)
+                    // since we started counting at item 1
+                    if (count != -1)
+                        count++;
+                    return count;
+                }
+
+            } // @ public short CaseCount
 
             /// <summary>
             /// Name of the selected item
@@ -683,6 +719,11 @@ namespace FFACETools
                 {
                     func = FFACE.GetTempItem;
                     location = InventoryType.Temp;
+                }
+                else if (IsSet(location, InventoryType.Case))
+                {
+                    func = FFACE.GetCaseItem;
+                    location = InventoryType.Case;
                 }
 
                 if (func == null)
@@ -1193,6 +1234,7 @@ namespace FFACETools
                 //return new InventoryItem(item.ID, item.Index, item.Count, item.Flag, item.Price, item.Extra, InventoryType.Satchel);
 
             } // @ public InventoryItem GetSatchelItem(ushort index)
+
             #endregion
 
             #region Methods relating to Sack
@@ -1260,6 +1302,56 @@ namespace FFACETools
                 //return new InventoryItem(item.ID, item.Index, item.Count, item.Flag, item.Price, item.Extra, InventoryType.Sack);
 
             } // @ public InventoryItem GetSatchelItem(ushort index)
+            #endregion
+
+            #region Methods relating to Case
+            /// <summary>
+            /// The count of an item by index
+            /// </summary>
+            /// <param name="index">Index of the item</param>
+            public uint GetCaseItemCountByIndex (byte index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+                return GetItemCountByIndex(index, InventoryType.Case);
+                //return GetSackItem(index).Count;
+
+            } // @ public byte GetItemCountByIndex(byte index)
+
+            /// <summary>
+            /// Will get a Case item ID by index
+            /// </summary>
+            /// <param name="index">Index of the item in your Sack</param>
+            public int GetCaseItemIDByIndex (byte index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+
+                return GetItemIDByIndex(index, InventoryType.Case);
+
+            } // @ public int GetCaseItemIDByIndex(short index)
+
+            /// <summary>
+            /// The amount of passed items you have in your Case
+            /// </summary>
+            /// <param name="iD">ID of the item to count</param>
+            public uint GetCaseItemCount (ushort iD)
+            {
+                return GetItemCount(iD, InventoryType.Case);
+
+            } // @ public int GetCaseItemCount(short ID)
+
+            /// <summary>
+            /// Gets information about an item from your Case
+            /// </summary>
+            /// <param name="index">Index of the item</param>
+            public InventoryItem GetCaseItem (int index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+
+                return GetItem(index, InventoryType.Case);
+            } // @ public InventoryItem GetCaseItem(ushort index)
             #endregion
 
             #region Methods relating to Equipment

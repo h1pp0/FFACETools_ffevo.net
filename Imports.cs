@@ -27,6 +27,8 @@ namespace FFACETools
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern Status GetPlayerStatus (int instanceID);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern byte GetPlayerServerID (int instanceID);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern ViewMode GetViewMode (int instanceID);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern float GetCastMax (int instanceID);
@@ -119,6 +121,8 @@ namespace FFACETools
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte GetSackMax (int instanceID);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern byte GetCaseMax (int instanceID);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern INVENTORYITEM GetInventoryItem (int instanceID, int index);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern INVENTORYITEM GetSafeItem (int instanceID, int index);
@@ -132,6 +136,8 @@ namespace FFACETools
         private static extern INVENTORYITEM GetSatchelItem (int instanceID, int index);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern INVENTORYITEM GetSackItem (int instanceID, int index);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern INVENTORYITEM GetCaseItem (int instanceID, int index);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern void GetSelectedItemName (int instanceID, byte[] buffer, ref int size);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]

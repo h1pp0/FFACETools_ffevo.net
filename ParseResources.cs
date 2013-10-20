@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using Microsoft.Win32; // registry keys
@@ -656,6 +659,10 @@ namespace FFACETools
                     long data_pos = 0;
                     UInt32 num_strings = 0, offset = 0, flags = 0;
 
+                    // Objects (General Items)  skip 6 bytes
+                    //if (( itemHeader.ID <= 0x08BC ) && ( itemHeader.ID >= 0x0000 ))
+                    //    br.BaseStream.Position = itemHeader.HeaderSize + 6;
+
                     // FIX: (10-7-2013) update
                     // Usable Items
                     if (( itemHeader.ID <= 0x21FF ) && ( itemHeader.ID >= 0x0000 ))
@@ -839,6 +846,7 @@ namespace FFACETools
                         iteminfo.BaseStream.Position = 0xC00 * item_counter;
                         byte[] readbytes = DecodeBlock(iteminfo.ReadBytes(0x200), 5);
                         BinaryReader data = new BinaryReader(new MemoryStream(readbytes, false));
+                        BitConverter.ToInt32(readbytes.Skip(0x18).Take(4).ToArray(), 0);
                         itemFormat itemObjects = new itemFormat(data);
                         // INSERT ITEM CHECK DATA HERE
                         data.Close();
