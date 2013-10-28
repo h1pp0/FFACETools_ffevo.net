@@ -705,6 +705,11 @@ namespace FFACETools
                     func = FFACE.GetSafeItem;
                     location = InventoryType.Safe;
                 }
+                else if (IsSet(location, InventoryType.Case))
+                {
+                    func = FFACE.GetCaseItem;
+                    location = InventoryType.Case;
+                }
                 else if (IsSet(location, InventoryType.Satchel))
                 {
                     func = FFACE.GetSatchelItem;
@@ -759,6 +764,7 @@ namespace FFACETools
                     bool inventory = IsSet(location, InventoryType.Inventory),
                             locker = IsSet(location, InventoryType.Locker),
                             sack = IsSet(location, InventoryType.Sack),
+							_case = IsSet(location, InventoryType.Case),
                             safe = IsSet(location, InventoryType.Safe),
                             satchel = IsSet(location, InventoryType.Satchel),
                             storage = IsSet(location, InventoryType.Storage),
@@ -792,6 +798,12 @@ namespace FFACETools
                         if (sack)
                         {
                             item = GetItem(i, InventoryType.Sack);
+                            if (( item != null ) && ( item.ID == iD ))
+                                retList.Add(item);
+                        }
+						if (_case)
+                        {
+                            item = GetItem(i, InventoryType.Case);
                             if (( item != null ) && ( item.ID == iD ))
                                 retList.Add(item);
                         }
