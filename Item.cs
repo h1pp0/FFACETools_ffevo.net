@@ -555,7 +555,8 @@ namespace FFACETools
                 // 0 is gil, rest is 1-80
                 if (IsSet(location, InventoryType.Inventory) && ( ( index < 0 ) || ( index > 80 ) ))
                     throw new ArgumentOutOfRangeException(INVENTORY_RANGE);
-                else if (!IsSet(location, InventoryType.Inventory) && ( ( index < 1 ) || ( index > 80 ) ))
+                    //FIX: Index of sack/satchel/case can be 0
+                else if (!IsSet(location, InventoryType.Inventory) && ( ( index < 0 ) || ( index > 80 ) ))
                     throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
             }
 
