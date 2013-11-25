@@ -18,7 +18,7 @@ namespace FFACETools
             /// <summary>
             /// Argument exception for non-inventory item calls (satchel/sack/etc)
             /// </summary>
-            private const string OTHERBAG_RANGE = "Index must be between 1 and 80";
+            private const string OTHERBAG_RANGE = "Index must be between 0 and 80";
 
             #endregion
 
@@ -725,11 +725,6 @@ namespace FFACETools
                 {
                     func = FFACE.GetTempItem;
                     location = InventoryType.Temp;
-                }
-                else if (IsSet(location, InventoryType.Case))
-                {
-                    func = FFACE.GetCaseItem;
-                    location = InventoryType.Case;
                 }
 
                 if (func == null)
