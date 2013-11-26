@@ -18,7 +18,7 @@ namespace FFACETools
             /// <summary>
             /// Argument exception for non-inventory item calls (satchel/sack/etc)
             /// </summary>
-            private const string OTHERBAG_RANGE = "Index must be between 0 and 80";
+            private const string OTHERBAG_RANGE = "Index must be between 1 and 80";
 
             #endregion
 
@@ -556,7 +556,7 @@ namespace FFACETools
                 if (IsSet(location, InventoryType.Inventory) && ( ( index < 0 ) || ( index > 80 ) ))
                     throw new ArgumentOutOfRangeException(INVENTORY_RANGE);
                     //FIX: Index of sack/satchel/case can be 0
-                else if (!IsSet(location, InventoryType.Inventory) && ( ( index < 0 ) || ( index > 80 ) ))
+                else if (!IsSet(location, InventoryType.Inventory) && ( ( index < 1 ) || ( index > 80 ) ))
                     throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
             }
 
