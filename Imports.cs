@@ -209,7 +209,7 @@ namespace FFACETools
          *		void GetNPCTradeInfo(void* inst, TRADEINFO* TI)
          *		BOOL IsSynthesis(void* inst)
          */
-        [DllImport("FFACE.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = false, EntryPoint = "SetCraftItem")]
+        [DllImport("FFACE.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = false, EntryPoint = "SetCraftItem", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool SetCraftItem (int instanceID, int Zero, ushort ItemID, byte Index, byte Count, byte Box);
 
 
