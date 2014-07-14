@@ -22,7 +22,8 @@
         CatchMonster = 42,
         Synthing = 44,
         Sitting = 47,
-        Fishing = 50
+        Fishing = 50,
+        Unknown
 
     } // @ public enum Status : byte
 

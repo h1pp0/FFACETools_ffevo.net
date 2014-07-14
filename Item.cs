@@ -128,6 +128,11 @@ namespace FFACETools
                 /// Location item was in.
                 /// </summary>
                 public InventoryType Location { get; set; }
+
+                /// <summary>
+                /// Name of item
+                /// </summary>
+                public string Name { get; set; }
                 #endregion
 
             } // @ public class InventoryItem

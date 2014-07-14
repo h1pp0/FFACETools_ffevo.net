@@ -378,7 +378,7 @@ namespace FFACETools
             /// </summary>
             /// <param name="value">FFXI Radians to set PosH to.</param>
             /// <returns>true on success, false otherwise</returns>
-            private bool SetPlayerPosH (float value)
+            public bool SetPlayerPosH (float value)
             {
                 if (FFACE.SetNPCPosH(_InstanceID, _FFACE.Player.ID, value) != 0.0f)
                     return true;
@@ -407,7 +407,7 @@ namespace FFACETools
             /// </summary>
             /// <param name="degrees">Degrees to set the PosH to (0/360 North), Negative valuees valid as well.</param>
             /// <returns>true on success, false otherwise</returns>
-            private bool SetPlayerDegrees (double degrees)
+            public bool SetPlayerDegrees (double degrees)
             {
                 if (FFACE.SetNPCPosH(_InstanceID, _FFACE.Player.ID, DegreesToPosH(degrees)) != 0.0f)
                     return true;
