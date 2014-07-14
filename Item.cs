@@ -767,7 +767,7 @@ namespace FFACETools
                 }
                 else if (IsSet(location, InventoryType.Wardrobe))
                 {
-                    func = FFACE.GetTempItem;
+                    func = FFACE.GetWardrobeItem;
                     location = InventoryType.Wardrobe;
                 }
 
