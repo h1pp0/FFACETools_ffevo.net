@@ -241,6 +241,15 @@ namespace FFACETools
             } // @ public short CaseMax
 
             /// <summary>
+            /// Maximum amount of case slots player has
+            /// </summary>
+            public short WardrobeMax
+            {
+                get { return 80; }
+
+            } // @ public short WardrobeMax
+
+            /// <summary>
             /// Inventory slots in use, returns -1 on error
             /// </summary>
             public short InventoryCount
@@ -453,6 +462,33 @@ namespace FFACETools
             } // @ public short CaseCount
 
             /// <summary>
+            /// Case slots in use, returns -1 on error
+            /// </summary>
+            public short WardrobeCount
+            {
+                get
+                {
+                    // calculate amount of slots are not empty
+                    // -1 for error (loading/zoning)
+                    short count = -1;
+
+                    for (byte i = 1; i <= 80; i++)
+                    {
+                        if (GetWardrobeItem(i) != null)
+                        {
+                            count++;
+                        }
+                    }
+                    // since we found at least ONE item, we want to report count+1 (0 == 1 item)
+                    // since we started counting at item 1
+                    if (count != -1)
+                        count++;
+                    return count;
+                }
+
+            } // @ public short CaseCount
+
+            /// <summary>
             /// Name of the selected item
             /// </summary>
             public string SelectedItemName
@@ -522,12 +558,11 @@ namespace FFACETools
                         byte index = GetSelectedItemIndex(_InstanceID);
                         if (( it == InventoryType.Inventory ) && ( ( index < 0 ) || ( index > 80 ) ))
                             return 0;
-                        else if (index < 1 || index > 80)
+                        if (index < 1 || index > 80)
                             return 0;
                         return GetItemIDByIndex(index, it);
                     }
-                    else
-                        return 0;
+                    return 0;
                 }
             }// @ public int SelectedItemID
 
@@ -725,6 +760,11 @@ namespace FFACETools
                     func = FFACE.GetTempItem;
                     location = InventoryType.Temp;
                 }
+                else if (IsSet(location, InventoryType.Wardrobe))
+                {
+                    func = FFACE.GetTempItem;
+                    location = InventoryType.Wardrobe;
+                }
 
                 if (func == null)
                     return null;
@@ -747,19 +787,21 @@ namespace FFACETools
             /// <returns></returns>
             public System.Collections.Generic.List<InventoryItem> GetItemList (int iD, InventoryType location)
             {
-                System.Collections.Generic.List<InventoryItem> retList = new System.Collections.Generic.List<InventoryItem>();
+                var retList = new System.Collections.Generic.List<InventoryItem>();
                 if (IsSet(location, InventoryType.None))
+                {
                     return retList;
+                }
 
                 if (location != InventoryType.None)
                 {
-                    InventoryItem item = null;
                     int start = 0;
 
                     bool inventory = IsSet(location, InventoryType.Inventory),
                             locker = IsSet(location, InventoryType.Locker),
                             sack = IsSet(location, InventoryType.Sack),
 							_case = IsSet(location, InventoryType.Case),
+                            wardrobe = IsSet(location, InventoryType.Wardrobe),
                             safe = IsSet(location, InventoryType.Safe),
                             satchel = IsSet(location, InventoryType.Satchel),
                             storage = IsSet(location, InventoryType.Storage),
@@ -773,6 +815,7 @@ namespace FFACETools
                     for (int i = start; i <= 80; i++)
                     {
                         // inventory index is allowed to be 0
+                        InventoryItem item;
                         if (inventory)
                         {
                             item = GetItem(i, InventoryType.Inventory);
@@ -824,6 +867,12 @@ namespace FFACETools
                         {
                             item = GetItem(i, InventoryType.Temp);
                             if (( item != null ) && ( item.ID == iD ))
+                                retList.Add(item);
+                        }
+                        if (wardrobe)
+                        {
+                            item = GetItem(i, InventoryType.Wardrobe);
+                            if ((item != null) && (item.ID == iD))
                                 retList.Add(item);
                         }
                     }
@@ -1359,6 +1408,56 @@ namespace FFACETools
 
                 return GetItem(index, InventoryType.Case);
             } // @ public InventoryItem GetCaseItem(ushort index)
+            #endregion
+
+            #region Methods relating to Wardrobe
+            /// <summary>
+            /// The count of an item by index
+            /// </summary>
+            /// <param name="index">Index of the item</param>
+            public uint GetWardrobeItemCountByIndex(byte index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+                return GetItemCountByIndex(index, InventoryType.Wardrobe);
+                //return GetSackItem(index).Count;
+
+            } // @ public byte GetItemCountByIndex(byte index)
+
+            /// <summary>
+            /// Will get a Wardrobe item ID by index
+            /// </summary>
+            /// <param name="index">Index of the item in your Sack</param>
+            public int GetWardrobeItemIDByIndex(byte index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+
+                return GetItemIDByIndex(index, InventoryType.Wardrobe);
+
+            } // @ public int GetWardrobeItemIDByIndex(short index)
+
+            /// <summary>
+            /// The amount of passed items you have in your Wardrobe
+            /// </summary>
+            /// <param name="iD">ID of the item to count</param>
+            public uint GetWardrobeItemCount(ushort iD)
+            {
+                return GetItemCount(iD, InventoryType.Wardrobe);
+
+            } // @ public int GetWardrobeItemCount(short ID)
+
+            /// <summary>
+            /// Gets information about an item from your Wardrobe
+            /// </summary>
+            /// <param name="index">Index of the item</param>
+            public InventoryItem GetWardrobeItem(int index)
+            {
+                if (1 > index || 80 < index)
+                    throw new ArgumentOutOfRangeException(OTHERBAG_RANGE);
+
+                return GetItem(index, InventoryType.Wardrobe);
+            } // @ public InventoryItem GetWardrobeItem(ushort index)
             #endregion
 
             #region Methods relating to Equipment

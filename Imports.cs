@@ -139,6 +139,8 @@ namespace FFACETools
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern INVENTORYITEM GetCaseItem (int instanceID, int index);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern INVENTORYITEM GetWardrobeItem(int instanceID, int index);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern void GetSelectedItemName (int instanceID, byte[] buffer, ref int size);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetSelectedItemNum (int instanceID);

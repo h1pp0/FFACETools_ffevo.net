@@ -2327,9 +2327,9 @@
         /// </summary>
         Case = 128,
         /// <summary>
-        /// Future expansion (no effect)
+        /// Wardrobe
         /// </summary>
-        Unknown1 = 256,
+        Wardrobe = 256,
         /// <summary>
         /// Inventory, Satchel, Sack and Case
         /// </summary>
