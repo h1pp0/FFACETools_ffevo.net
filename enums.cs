@@ -14,7 +14,7 @@
         Event = 4,
         Chocobo = 5,
         Healing = 33,
-        FishBite = 38,
+        //FishBite = 38,
         Obtained = 39,
         RodBreak = 40,
         LineBreak = 41,
@@ -22,7 +22,10 @@
         CatchMonster = 42,
         Synthing = 44,
         Sitting = 47,
-        Fishing = 50,
+        //Fishing = 50,
+        Fishing = 56,
+        FishBite = 57,
+        Released = 62,
         Unknown
 
     } // @ public enum Status : byte
