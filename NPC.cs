@@ -114,14 +114,15 @@ namespace FFACETools
             /// </summary>
             /// <param name="id">Index of NPC</param>
             /// <returns>True if NPC is rendered</returns>
-            public bool IsRendered (int id)
+            public bool IsRendered(int id)
             {
                 // Read the Render byte from the NPC array
-                byte[] memorybytes = GetRawNPCData(id, 0x104, 1);
-
-                if (memorybytes != null)
-                    return ((memorybytes[0] & (1 << 2)) != 0);
-                return false;
+                {
+                    byte[] memorybytes = GetRawNPCData(id, 0x100, 4);
+                    if (memorybytes != null)
+                        return ((BitConverter.ToInt32(memorybytes, 0) & 0x200) != 0);
+                    return false;
+                }
             }
 
             /// <summary>
