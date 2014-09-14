@@ -282,7 +282,7 @@ namespace FFACETools
             {
                 for (byte i = 0; i < MAX_ABILITY_INDEX; i++)
                     if (GetAbilityID(i) == abil)
-                        return FFACE.GetAbilityRecast(_InstanceID, i) / 60;
+                        return (int) Math.Ceiling((decimal) (FFACE.GetAbilityRecast(_InstanceID, i) / 60));
                 // not found.
                 return -1;
             }
@@ -294,7 +294,7 @@ namespace FFACETools
             public int GetAbilityRecast (byte index)
             {
                 if (index >= 0 && index <= MAX_ABILITY_INDEX)
-                    return FFACE.GetAbilityRecast(_InstanceID, index) / 60;
+                    return (int) Math.Ceiling((decimal) (FFACE.GetAbilityRecast(_InstanceID, index) / 60));
                 else
                     throw new ArgumentOutOfRangeException("Must be within 0 to MAX_ABILITY_INDEX");
             } // @ public int GetAbilityRecast(byte index)
