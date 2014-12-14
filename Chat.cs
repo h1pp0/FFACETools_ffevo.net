@@ -692,9 +692,9 @@ cleanedString = cleanedString.Replace("1", "");
                 // System.Text.Encoding.GetEncoding(932)
                 string tempLine = System.Text.Encoding.GetEncoding(1252).GetString(buffer, 0, size - 1);
 
-                string[] sArray = tempLine.Split(new char[1] { ',' }, 12, StringSplitOptions.None);
+                string[] sArray = tempLine.Split(new char[1] { ',' }, 13, StringSplitOptions.None);
 
-                if (sArray.Length != 12)
+                if (sArray.Length != 13)
                 {
                     return new ChatLogEntry()
                     {
@@ -721,7 +721,8 @@ cleanedString = cleanedString.Replace("1", "");
                  * [8] UNKNOWN (always one?)
                  * [9] UNKNOWN (known values, 00 (echo/syscommands?), 01 (chat?), 02 (spells/abilities/etc?))
                  * [10] UNKNOWN  known values: 1 (Possibly when chat lines are shared) 0 (not shared?) (Duplicate of [2]?)
-                 * [11] Actual line text
+                 * [11] UNKNOWN
+                 * [12] Actual line text
                  */
                 String colorString = String.Empty;
                 Color clr = Color.Empty;
@@ -759,7 +760,7 @@ cleanedString = cleanedString.Replace("1", "");
                     ndx = -1;
                     errorMsg += String.Format("{0} ", e.Message);
                 }
-                lnTxt = sArray[11].TrimEnd('\0');
+                lnTxt = sArray[12].TrimEnd('\0');
                 if (errorMsg != String.Empty)
                 {
                     String temp = errorMsg + lnTxt;
