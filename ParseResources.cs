@@ -691,7 +691,7 @@ namespace FFACETools
                     // Weapon Specific Info, 30 bytes to skip
                     // 34 bytes in March 10, 2008 Update (new UINT32)
                     else if (( itemHeader.ID <= 0x6FFF ) && ( itemHeader.ID >= 0x4000 ))
-                        br.BaseStream.Position = itemHeader.HeaderSize + 34;
+                        br.BaseStream.Position = itemHeader.HeaderSize + 38;
 
                     // Storage Slips, Vouchers, etc.
                     else if (( itemHeader.ID <= 0x7FFF ) && ( itemHeader.ID >= 0x7000 ))
