@@ -149,7 +149,9 @@ namespace FFACETools
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern TREASUREITEM GetTreasureItem (int instanceID, byte index);
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
-        private static extern byte GetEquippedItemIndex (int instanceID, EquipSlot slot);
+        private static extern byte GetEquippedItemIndex(int instanceID, EquipSlot slot);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern byte GetEquippedItemLocation(int instanceID, EquipSlot slot);
 
         #endregion
 

@@ -1468,14 +1468,37 @@ namespace FFACETools
             #region Methods relating to Equipment
 
             /// <summary>
+            /// Gets information about an item from your inventory
+            /// </summary>
+            /// <param name="slot">Slot to get item from</param>
+            /// <returns>InventoryItem filled with data about item, null if no item or error.</returns>
+            public InventoryItem GetEquippedItem(EquipSlot slot)
+            {
+                byte index = GetEquippedItemIndex(slot);
+                if (index > 0)
+                {
+                    if (GetEquippedItemLocation(slot) == 8)
+                        return GetItem(index, InventoryType.Wardrobe);// GetInventoryItem(index).Count;
+                    else
+                        return GetItem(index, InventoryType.Inventory);// GetInventoryItem(index).Count;
+                }
+                return null;
+            } // @ public InventoryItem GetEquippedItem(EquipSlot slot)
+
+            /// <summary>
             /// The count of an item in a specific equipment slot
             /// </summary>
             /// <param name="slot">Slot to count</param>
-            public uint GetEquippedItemCount (EquipSlot slot)
+            public uint GetEquippedItemCount(EquipSlot slot)
             {
                 byte index = GetEquippedItemIndex(slot);
-                if (index != 0)
-                    return GetItemCountByIndex(index, InventoryType.Inventory);// GetInventoryItem(index).Count;
+                if (index > 0)
+                {
+                    if (GetEquippedItemLocation(slot) == 8)
+                        return GetItemCountByIndex(index, InventoryType.Wardrobe);// GetInventoryItem(index).Count;
+                    else
+                        return GetItemCountByIndex(index, InventoryType.Inventory);// GetInventoryItem(index).Count;
+                }
                 return 0;
             } // @ public byte GetEquippedItemCount(EquipSlot slot)
 
@@ -1483,11 +1506,16 @@ namespace FFACETools
             /// Gets the item id for passed equipment slot
             /// </summary>
             /// <param name="slot">Slot to get the ID for</param>
-            public int GetEquippedItemID (EquipSlot slot)
+            public int GetEquippedItemID(EquipSlot slot)
             {
                 byte index = GetEquippedItemIndex(slot);
-                if (index != 0)
-                    return GetItemIDByIndex(index, InventoryType.Inventory);// GetInventoryItem(index).ID;
+                if (index > 0)
+                {
+                    if (GetEquippedItemLocation(slot) == 8)
+                        return GetItemIDByIndex(index, InventoryType.Wardrobe);// GetInventoryItem(index).Count;
+                    else
+                        return GetItemIDByIndex(index, InventoryType.Inventory);// GetInventoryItem(index).Count;
+                }
                 return 0;
             } // @ public short GetEquippedItemID(EquipSlot slot)
 
@@ -1495,10 +1523,22 @@ namespace FFACETools
             /// Gets the index of an item for the passed equipment slot
             /// </summary>
             /// <param name="slot">Slot to get the index for</param>
-            public byte GetEquippedItemIndex (EquipSlot slot)
+            public byte GetEquippedItemIndex(EquipSlot slot)
             {
-                return FFACE.GetEquippedItemIndex(_InstanceID, slot);
+                byte Index = FFACE.GetEquippedItemIndex(_InstanceID, slot);
+                if (Index > 80) return 0;
+                return Index;
             } // @ public byte GetEquippedItemIndex(EquipSlot slot)
+
+            /// <summary>
+            /// Gets the location of an item for the passed equipment slot
+            /// </summary>
+            /// <param name="slot">Slot to get the location for</param>
+            public byte GetEquippedItemLocation(EquipSlot slot)
+            {
+                byte Location = FFACE.GetEquippedItemLocation(_InstanceID, slot);
+                return Location;
+            } // @ public byte GetEquippedItemLocation(EquipSlot slot)
 
             #endregion
 
