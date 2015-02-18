@@ -948,7 +948,7 @@ cleanedString = cleanedString.Replace("1", "");
                     line.Type = _ChatLog.Peek().LineType;
 
                     // if user wanted to strip off color characters, do so
-                    line.Text = FFACE.ChatTools.CleanLine(_ChatLog.Peek().LineText.Substring(84), lineSettings);
+                    line.Text = FFACE.ChatTools.CleanLine(_ChatLog.Peek().LineText, lineSettings);
 
                     LineParsed();
 
