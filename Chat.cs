@@ -317,6 +317,8 @@ namespace FFACETools
                 // Sanity checks
                 for (Int32 c = 0; c < len; ++c)
                 {
+                    if ((c == 0)
+                        && (IsSet(lineSettings, LineSettings.CleanOthers))) c = 84;
                     if (( bytearray1252[c] == '\xEF' ) && ( ( ( c + 1 ) < len ) && ( ( ndx = sEF.IndexOf((Char)bytearray1252[c + 1]) ) >= 0 ) ))
                     {
                         // 3C <  3E >
@@ -425,7 +427,9 @@ namespace FFACETools
                         i = sExtra.IndexOf((char)bytearray1252[c]);
                         if (i >= 3) // \r\n\07 are singles, others are doubles
                         {
-                            if (( ( bytearray1252[c] == '\x7F' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\x31' ) ) ||
+                            if (((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\x31')) ||
+                                ((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\xFB')) ||
+                                ((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\xFC')) ||
                                 ( ( bytearray1252[c] == '\x81' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\xA1' ) ) ||
                                 ( ( bytearray1252[c] == '\x81' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\x40' ) ) ||
                                 ( ( bytearray1252[c] == '\x87' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\xB2' ) ) ||
@@ -944,7 +948,7 @@ cleanedString = cleanedString.Replace("1", "");
                     line.Type = _ChatLog.Peek().LineType;
 
                     // if user wanted to strip off color characters, do so
-                    line.Text = FFACE.ChatTools.CleanLine(_ChatLog.Peek().LineText, lineSettings);
+                    line.Text = FFACE.ChatTools.CleanLine(_ChatLog.Peek().LineText.Substring(84), lineSettings);
 
                     LineParsed();
 
