@@ -318,6 +318,7 @@ namespace FFACETools
                 for (Int32 c = 0; c < len; ++c)
                 {
                     if ((c == 0)
+                        && (lineSettings != LineSettings.DialogDefault)
                         && (IsSet(lineSettings, LineSettings.CleanOthers))) c = 84;
                     if (( bytearray1252[c] == '\xEF' ) && ( ( ( c + 1 ) < len ) && ( ( ndx = sEF.IndexOf((Char)bytearray1252[c + 1]) ) >= 0 ) ))
                     {
