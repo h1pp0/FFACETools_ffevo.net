@@ -118,7 +118,7 @@ namespace FFACETools
             {
                 // Read the Render byte from the NPC array
                 {
-                    byte[] memorybytes = GetRawNPCData(id, 0x120, 4);
+                    byte[] memorybytes = GetRawNPCData(id, 0x124, 4);
                     if (memorybytes != null)
                         return ((BitConverter.ToInt32(memorybytes, 0) & 0x200) != 0);
                     return false;
