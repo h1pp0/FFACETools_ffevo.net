@@ -319,7 +319,7 @@ namespace FFACETools
                 {
                     if ((c == 0)
                         && (lineSettings != LineSettings.DialogDefault)
-                        && (IsSet(lineSettings, LineSettings.CleanOthers))) c = 84;
+                        && (IsSet(lineSettings, LineSettings.CleanOthers))) c = 75;
                     if (( bytearray1252[c] == '\xEF' ) && ( ( ( c + 1 ) < len ) && ( ( ndx = sEF.IndexOf((Char)bytearray1252[c + 1]) ) >= 0 ) ))
                     {
                         // 3C <  3E >
@@ -429,8 +429,8 @@ namespace FFACETools
                         if (i >= 3) // \r\n\07 are singles, others are doubles
                         {
                             if (((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\x31')) ||
-                                ((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\xFB')) ||
-                                ((bytearray1252[c] == '\x7F') && (((c + 1) < len) && bytearray1252[c + 1] == '\xFC')) ||
+                                (((c + 1) < len) && (bytearray1252[c + 1] == '\xFB')) ||
+                                (((c + 1) < len) && (bytearray1252[c + 1] == '\xFC')) ||
                                 ( ( bytearray1252[c] == '\x81' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\xA1' ) ) ||
                                 ( ( bytearray1252[c] == '\x81' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\x40' ) ) ||
                                 ( ( bytearray1252[c] == '\x87' ) && ( ( ( c + 1 ) < len ) && bytearray1252[c + 1] == '\xB2' ) ) ||
