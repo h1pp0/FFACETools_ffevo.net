@@ -579,7 +579,7 @@
         GEO_INT = 546,
         GEO_MND = 547,
         Geo_CHR = 548,
-        Geo_Fury = 549
+        Geo_Fury = 549,
         Geo_Barrier = 550,
         Geo_Acumen = 551,
         Geo_Fend = 552,
