@@ -569,8 +569,24 @@
         Astral_Conduit = 504,
         Unbridled_Wisdom = 505,
         Three_To_One = 506,
-        Grand_Pas = 507
-
+        Grand_Pas = 507,
+        Geo_Regen = 539,
+        Geo_Refresh = 541,
+        Geo_Haste = 580,
+        Geo_Dex = 543,
+        Geo_Vit = 544,
+        Geo_AGI = 545,
+        GEO_INT = 546,
+        GEO_MND = 547,
+        Geo_CHR = 548,
+        Geo_Fury = 549,
+        Geo_Barrier = 550,
+        Geo_Acumen = 551,
+        Geo_Fend = 552,
+        Geo_Precision = 553,
+        Geo_Voidance = 554,
+        Geo_Focus = 555,
+        Geo_Attunment = 556
     } // @ public enum StatusEffect : short
 
     #endregion
