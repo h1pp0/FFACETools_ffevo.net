@@ -14,6 +14,19 @@ namespace FFACETools
         [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Access (int instanceID);
 
+        #region Navigator Imports
+
+        /*
+         * FFACE 4.2.0.0+ imports
+         */
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void StartRunning(int Instance, float X, float Z);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void StopRunning(int Instance);
+        [DllImport(FFACE_LIBRARY, CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool IsRunning(int Instance);
+
+        #endregion
 
         #region Player Imports
 

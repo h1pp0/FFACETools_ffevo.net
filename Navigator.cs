@@ -91,6 +91,11 @@ namespace FFACETools
             /// </summary>
             public int GotoDelay { get; set; }
 
+            /// <summary>
+            /// If enabled, uses memory writes for movement instead of keystrokes.
+            /// </summary>
+            public bool UseNewMovement { get; set; }
+
             #endregion
 
             #region Constructor
@@ -107,7 +112,7 @@ namespace FFACETools
                 _DistanceTolerance = 3f;
                 SpeedDelay = 40;
                 GotoDelay = 40;
-
+                UseNewMovement = false;
             } // @ public NavigatorTools(PlayerTools player)
 
             ~NavigatorTools ()
@@ -313,33 +318,41 @@ namespace FFACETools
                     // if ANY of the values are NOT zero, then we aren't zoning, do something
                     if (X != 0.0f || Y != 0.0f || Z != 0.0f)
                     {
-                        // Force ViewMode to first person otherwise this doesn't make sense
-                        SetViewMode(ViewMode.FirstPerson);
-
-                        // Check Heading Error
-                        Heading = HeadingTo(X, Y, Z, HeadingType.Degrees);
-                        PlayerHeading = GetPlayerPosHInDegrees();
-                        Herror = HeadingError(PlayerHeading, Heading);
-
-                        // if we're out of our heading tolerance
-                        if (Math.Abs(Herror) > HeadingTolerance)
+                        if (UseNewMovement)
                         {
-                            // Face proper direction
-                            FaceHeading(X, Y, Z);
-                        }
-                        else if (UseArrowKeysForTurning && ( Herror < -( HeadingTolerance / 2.0f ) ))
-                        {
-                            _FFACE.Windower.SendKeyPress(KeyCode.NP_Number4);
-                        }
-                        else if (UseArrowKeysForTurning && ( Herror > ( HeadingTolerance / 2.0f ) ))
-                        {
-                            _FFACE.Windower.SendKeyPress(KeyCode.NP_Number6);
+                            FFACE.StartRunning(_InstanceID, X, Z);
                         }
 
-                        // Moved StartRunning to AFTER the Distance check
-                        // to avoid tap-tap-tapping when we're already within distance
-                        if (!IsRunning())
-                            StartRunning();
+                        else
+                        {
+                            // Force ViewMode to first person otherwise this doesn't make sense
+                            SetViewMode(ViewMode.FirstPerson);
+
+                            // Check Heading Error
+                            Heading = HeadingTo(X, Y, Z, HeadingType.Degrees);
+                            PlayerHeading = GetPlayerPosHInDegrees();
+                            Herror = HeadingError(PlayerHeading, Heading);
+
+                            // if we're out of our heading tolerance
+                            if (Math.Abs(Herror) > HeadingTolerance)
+                            {
+                                // Face proper direction
+                                FaceHeading(X, Y, Z);
+                            }
+                            else if (UseArrowKeysForTurning && (Herror < -(HeadingTolerance / 2.0f)))
+                            {
+                                _FFACE.Windower.SendKeyPress(KeyCode.NP_Number4);
+                            }
+                            else if (UseArrowKeysForTurning && (Herror > (HeadingTolerance / 2.0f)))
+                            {
+                                _FFACE.Windower.SendKeyPress(KeyCode.NP_Number6);
+                            }
+
+                            // Moved StartRunning to AFTER the Distance check
+                            // to avoid tap-tap-tapping when we're already within distance
+                            if (!IsRunning())
+                                StartRunning();
+                        }
                     }
 
                     // Sleep(GotoDelay) milliseconds before next loop
@@ -348,7 +361,9 @@ namespace FFACETools
                 } // @ while (DistanceToPosXZ(X, Z) > DistanceTolerance)
 
                 if (!KeepRunning)
+                {
                     StopRunning();
+                }
 
             } // @ public void GotoXYZ(dPoint x, dPoint y, dPoint z, bool KeepRunning, int timeOut)
 
@@ -625,7 +640,14 @@ namespace FFACETools
             /// </summary>
             private void StopRunning ()
             {
-                if (_IsRunning)
+                if (UseNewMovement)
+                {
+                    if (FFACE.IsRunning(_InstanceID))
+                    {
+                        FFACE.StopRunning(_InstanceID);
+                    }
+                }
+                else if (_IsRunning)
                 {
                     _IsRunning = false;
                     _FFACE.Windower.SendKey(KeyCode.NP_Number8, false);
